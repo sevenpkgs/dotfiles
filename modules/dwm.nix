@@ -8,6 +8,8 @@
     }
   ];
 
+  services.picom.vSync = true;
+
   programs.slock = {
     enable = true;
     package = pkgs.slock.override {
