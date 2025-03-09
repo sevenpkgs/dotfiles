@@ -1,0 +1,23 @@
+[global]
+font = "JetBrainsMono NF NL 12"
+icon_path = "/home/seven/.dotfiles/configs/dunst/"
+enable_recursive_icon_lookup = true
+
+[urgency_low]
+    background = "#282828"
+    foreground = "#98971a"
+    timeout = 5
+    default_icon = info_low.png 
+
+[urgency_normal]
+    background = "#282828"
+    foreground = "#458588"
+    timeout = 7
+    default_icon =info_normal
+
+[urgency_critical]
+    background = "#282828"
+    foreground = "#cc241d"
+    frame_color = "#fabd2f"
+    timeout = 10
+    default_icon = critical.png

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Function to scan Wi-Fi networks
+scan_networks() {
+    # Get the list of available Wi-Fi networks using nmcli
+    nmcli dev wifi rescan
+    networks=$(nmcli dev wifi | grep -v "SSID" | awk '{print $2}' | sort)
+ 
+    if [ -z "$networks" ]; then
+        echo "No networks found."
+        exit 1
+    fi
+ 
+    echo "$networks"
+}
+ 
+# Function to connect to a selected network
+connect_to_network() {
+    selected_network=$1
+    password=$(echo -n | dmenu -p "Enter password for $selected_network:" -i)
+ 
+    if [ -z "$password" ]; then
+        echo "No password entered, aborting connection."
+        exit 1
+    fi
+ 
+    # Connect to the selected network using nmcli
+    nmcli dev wifi connect "$selected_network" password "$password"
+}
+ 
+# Scan available Wi-Fi networks
+networks=$(scan_networks)
+ 
+# Let the user select a network using dmenu
+selected_network=$(echo "$networks" | dmenu -l 7 -p "Select a network:")
+ 
+# If a network is selected, attempt to connect
+if [ -n "$selected_network" ]; then
+    connect_to_network "$selected_network"
+else
+    echo "No network selected. Exiting."
+    exit 1
+fi
