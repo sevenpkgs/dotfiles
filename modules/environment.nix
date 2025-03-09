@@ -23,7 +23,7 @@
     file
     ripgrep
     xclip
-    xautolock
+    xidlehook
     nix-init
     nurl
   ];
