@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-xautolock -lockaftersleep -time 2 -locker slock&
+/home/seven/.dotfiles/scripts/autolock.sh &
 dwmblocks &
 xset r rate 300 50
 feh --bg-fill /home/seven/.dotfiles/.wall

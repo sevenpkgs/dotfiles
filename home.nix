@@ -45,7 +45,6 @@
     librewolf
     lazygit
     ffmpeg
-    pinentry
     brightnessctl
     libnotify
     dunst
