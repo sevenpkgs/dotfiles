@@ -103,7 +103,7 @@ case "$chosen" in
 		test -b "/dev/mapper/usb$num"
 
 		attemptmount || getmount
-		sudo -A mount "/dev/mapper/usb$num" "$mp"
+		sudo mount "/dev/mapper/usb$num" "$mp"
 		notify-send "🔓Decrypted drive Mounted." "$chosen decrypted and mounted to $mp."
 		;;
 
