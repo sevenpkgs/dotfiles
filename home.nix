@@ -34,6 +34,7 @@
     xfce.thunar
     #    (pkgs.callPackage ./programs/harsh.nix {})
     (pkgs.callPackage ./programs/sent.nix {})
+    (pkgs.callPackage ./programs/gowall.nix {})
     flameshot
     neovim
     dust
