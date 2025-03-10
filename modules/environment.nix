@@ -26,6 +26,7 @@
     xidlehook
     nix-init
     nurl
+    ssh-askpass-fullscreen
   ];
 
   # enable fish
