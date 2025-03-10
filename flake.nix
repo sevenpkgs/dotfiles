@@ -12,30 +12,37 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, nvf, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      nixosConfigurations = {
-        dwmachine = lib.nixosSystem {
-          inherit system;
-          modules = [ 
-           ./configuration.nix
-           inputs.stylix.nixosModules.stylix
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        seven = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ stylix.homeManagerModules.stylix 
-          			  nvf.homeManagerModules.default
-          			  ./home.nix
-          		 ];
-        };
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    stylix,
+    nvf,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    lib = nixpkgs.lib;
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    nixosConfigurations = {
+      dwmachine = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./configuration.nix
+          inputs.stylix.nixosModules.stylix
+        ];
       };
     };
+
+    homeConfigurations = {
+      seven = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          stylix.homeManagerModules.stylix
+          nvf.homeManagerModules.default
+          ./home.nix
+        ];
+      };
+    };
+  };
 }
