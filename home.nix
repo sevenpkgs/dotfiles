@@ -83,6 +83,8 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    SSH_ASKPASS = "ssh-askpass-fullscreen";
+    SUDO_ASKPASS = "/run/current-system/sw/bin/ssh-askpass-fullscreen";
   };
 
   # gpg
