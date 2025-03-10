@@ -1,5 +1,7 @@
 [global]
 font = "JetBrainsMono NF NL 12"
+history_ignore=yes
+
 icon_path = "/home/seven/.dotfiles/configs/dunst/"
 enable_recursive_icon_lookup = true
 
