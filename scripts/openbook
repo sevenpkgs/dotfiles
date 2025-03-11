@@ -2,7 +2,7 @@
 
 #Get search term and directory (defaults to current directory if not provided)
 search_term="$(cat ~/Documents/books/.reading)"
-directory="~/Documents/books/"
+directory="$HOME/Documents/books/"
 
 # Convert the search term into a regular expression where each character must appear in order
 regex=""
