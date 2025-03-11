@@ -9,6 +9,6 @@ rg --color=always --line-number --no-heading --smart-case -g "*.$EXT" "${*:2}" |
       --color "hl:-1:underline,hl+:-1:underline:reverse" \
       --delimiter : \
       --preview 'bat --style=plain --language=md --theme=gruvbox-dark --color=always {1} --highlight-line {2}' \
-      --preview-window 'right,45%,wrap,+{2}+3/3,~3' \
+      --preview-window 'right,60%,wrap,+{2}+3/3,~3' \
       --bind 'enter:become(nvim {1} +{2})'
 
