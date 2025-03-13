@@ -56,6 +56,7 @@
 
   stylix.image = ../.wall;
   stylix.enable = true;
+  stylix.autoEnable = true;
 
   # fonts
   stylix.fonts.serif = {
@@ -76,5 +77,10 @@
   stylix.fonts.emoji = {
     package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
     name = "JetBrainsMonoNL NF";
+  };
+
+  stylix.cursor = {
+    package = pkgs.capitaine-cursors-themed;
+    name = "Capitaine Cursors (Gruvbox) - White";
   };
 }
