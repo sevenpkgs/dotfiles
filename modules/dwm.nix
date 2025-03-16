@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./dwm/dwmblocks.nix
+  ];
+
   services.xserver.windowManager.dwm.enable = true;
   services.xserver.enable = true;
   services.xserver.resolutions = [
@@ -12,6 +16,14 @@
     enable = true;
     vSync = true;
   };
+
+  systemd.services.dwmblocks_fix = {
+    description = "restart dwmblocks to prevent it from freezing.";
+    after = ["systemd-suspend.service"];
+    serviceConfig.ExecStart = "${pkgs.bash}/bin/bash -c 'pkill dwmblocks; dwmblocks &'";
+    wantedBy = ["multi-user.target"];
+  };
+
   programs.slock = {
     enable = true;
     package = pkgs.slock.override {
