@@ -13,7 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
-    gpg
+    gnupg
     wget
     git
     dmenu
