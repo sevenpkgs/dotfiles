@@ -88,14 +88,6 @@
     SUDO_ASKPASS = "/run/current-system/sw/bin/ssh-askpass-fullscreen";
   };
 
-  # gpg
-  programs.gpg = {
-    enable = true;
-    settings = {
-      pinentry-mode = "loopback";
-    };
-  };
-
   # mpv
   programs.mpv = {
     enable = true;
