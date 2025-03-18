@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }: {
@@ -106,6 +107,7 @@
 
   # zathura
   programs.zathura = {
+    package = pkgs-unstable.zathura;
     enable = true;
     extraConfig = "include gruvbox";
   };
