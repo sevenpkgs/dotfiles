@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/release-24.11";
@@ -15,6 +16,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     stylix,
     nvf,
@@ -23,6 +25,7 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib;
     pkgs = nixpkgs.legacyPackages.${system};
+    pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
   in {
     nixosConfigurations = {
       dwmachine = lib.nixosSystem {
@@ -31,6 +34,9 @@
           ./configuration.nix
           inputs.stylix.nixosModules.stylix
         ];
+        specialArgs = {
+          inherit pkgs-unstable;
+        };
       };
     };
 
@@ -42,6 +48,9 @@
           nvf.homeManagerModules.default
           ./home.nix
         ];
+        extraSpecialArgs = {
+          inherit pkgs-unstable;
+        };
       };
     };
   };
