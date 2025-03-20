@@ -45,6 +45,7 @@
       ./dwm/patches/dwm-noborder-6.2.diff
       ./dwm/patches/dwm-fullgaps-6.4.diff
       ./dwm/patches/dwm-swallow-6.3.diff
+      ./dwm/patches/dwm-notitle-20210715-138b405.diff
     ];
   };
 }
