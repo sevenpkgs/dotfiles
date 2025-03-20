@@ -30,6 +30,7 @@
         options = {
           shada = "";
           shiftwidth = 2;
+          linebreak = true;
         };
         useSystemClipboard = true;
         statusline.lualine.enable = true;
