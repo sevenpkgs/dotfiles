@@ -6,9 +6,7 @@
   users.users.seven = {
     isNormalUser = true;
     description = "seven";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-    ];
+    extraGroups = ["networkmanager" "wheel" "libvirtd"];
   };
 
   environment.systemPackages = with pkgs; [
@@ -29,6 +27,10 @@
     nurl
     ssh-askpass-fullscreen
   ];
+
+  # virt-manager
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # enable fish
   programs.fish.enable = true;
@@ -59,7 +61,6 @@
   stylix.enable = true;
   stylix.autoEnable = true;
 
-  # fonts
   stylix.fonts.serif = {
     package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
     name = "JetBrainsMonoNL NF";
