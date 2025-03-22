@@ -50,6 +50,7 @@
     libnotify
     dunst
     sxiv
+    pkgs-unstable.gowall
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
