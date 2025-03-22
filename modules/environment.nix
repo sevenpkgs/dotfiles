@@ -26,6 +26,7 @@
     nix-init
     nurl
     ssh-askpass-fullscreen
+    qalc
   ];
 
   # virt-manager
