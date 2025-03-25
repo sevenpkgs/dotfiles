@@ -17,9 +17,8 @@
     l = "eza -l";
     la = "eza -la";
     tree = "eza -T";
-    df = "cd ~/.dotfiles && du -a ~/.dotfiles/* | awk '{print $2}' | fzf | xargs -r nvim";
-    #notes = "~/.dotfiles/scripts/notes.sh";
-    #setbg = "~/.dotfiles/scripts/setbg.sh";
+    fdf = "cd ~/.dotfiles && du -a ~/.dotfiles/* | cut -f2- | fzf | xargs -r nvim";
+    fdfn = "du -a ~/.dotfiles/* | cut -f2- | fzf | xargs -r nvim";
   };
 
   home.sessionPath = [
