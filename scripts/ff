@@ -7,15 +7,25 @@
 # you can also specify what files to look for                       #
 # ex: ./ff md                                                       #
 
-EXT="${1:-*}"
+# Use $1 if provided; otherwise, leave EXT empty.
+EXT="$1"
 
-pushd "$(pwd)"
+pushd "$(pwd)" > /dev/null
 
-FZF_DEFAULT_COMMAND="du -a *.$EXT | cut -f2-" \
+if [ -z "$EXT" ]; then
+  # No argument provided: run command without grep.
+  FZF_DEFAULT_COMMAND="du -a * | cut -f2-"
+else
+  # Argument provided: include grep.
+  FZF_DEFAULT_COMMAND="du -a * | grep -i $EXT | cut -f2-"
+fi
+
+FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND" \
   fzf --height=100% --preview-window=right:75%:wrap \
-  --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
-  --bind 'enter:execute(nvim {})' \
-  --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
-  --bind "ctrl-i:execute(nvim)" \
-  --bind 'ctrl-f:execute(search)'
-popd
+      --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
+      --bind 'enter:execute(nvim {})' \
+      --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
+      --bind "ctrl-i:execute(nvim)" \
+      --bind 'ctrl-f:execute(search)'
+
+popd > /dev/null
