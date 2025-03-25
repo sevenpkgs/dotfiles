@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+###       fIND fILES       ###
+### A script by @sevenpkgs ###
+
+pushd "$(pwd)"
+
+FZF_DEFAULT_COMMAND="du -a ./* | cut -f2-" \
+  fzf --height=100% --preview-window=right:75%:wrap \
+  --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
+  --bind 'enter:execute(nvim {})' \
+  --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
+  --bind "ctrl-i:execute(nvim)" \
+  --bind 'ctrl-f:execute(search)'
+popd

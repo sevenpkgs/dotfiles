@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-# echo $(read -p "Search for: " search; echo $search) | xargs -I {} grep --line-buffered -r "{}" * | sed 's/\.md:.*//g;s/$/.md/'
+###         notes          ###
+### A script by @sevenpkgs ###
+
+# A simple notes program using fzf #
+
+
 pushd "$HOME/Documents/notes"
  
 #NOTE=$(date +%d\ %b\ %Y,\ %R)

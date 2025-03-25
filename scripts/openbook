@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-#Get search term and directory (defaults to current directory if not provided)
+###        openbook        ###
+### A script by @sevenpkgs ###
+
+# reads the name of the book you're currently reading from a set file, then opens it #
+# why? because it saves time.                                                        #
+
+
 search_term="$(cat ~/Documents/books/.reading)"
 directory="$HOME/Documents/books/"
 

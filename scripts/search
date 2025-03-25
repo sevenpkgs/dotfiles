@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+###       search           ###
+### A script by @sevenpkgs ###
+
+# search the contents of files (in the current directory) recursively #
+# you can also specify the file extension to look in                  #
+# ex: ./search md                                                     #
+
 # Set the default file extension to all files if not specified
 EXT="${1:-*}"
 
