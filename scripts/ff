@@ -5,7 +5,7 @@
 
 # finds files in current directory using fzf and opens them in nvim #
 # you can also specify what files to look for and where to look in  #
-# ex: ./ff md                                                       #
+# ex: ./ff <filename> <directory>                                   #
 
 # If a single argument is provided and it's a directory, use it.
 if [ "$#" -eq 1 ] && [ -d "$1" ]; then
@@ -18,7 +18,6 @@ fi
 
 pushd "$DIR" > /dev/null
 
-# Build the command concisely.
 cmd="du -a *"
 [ -n "$EXT" ] && cmd="$cmd | grep -i $EXT"
 cmd="$cmd | cut -f2-"

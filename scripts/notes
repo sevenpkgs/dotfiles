@@ -6,9 +6,8 @@
 # A simple notes program using fzf #
 
 
-pushd "$HOME/Documents/notes"
+pushd "$HOME/Documents/notes" > /dev/null
  
-#NOTE=$(date +%d\ %b\ %Y,\ %R)
 NOTE=$(date +%d-\%b-\%Y\ %H\;\%M)
  
 FZF_DEFAULT_COMMAND="ls *.md | sort -t' ' -k1,1 -k2,2 -k3,3 -k4,4 | sort -k1.8,1.11 -k1.4,1.5 -k1.1,1.2 -k2.1,2.3 -r" \
@@ -18,5 +17,5 @@ FZF_DEFAULT_COMMAND="ls *.md | sort -t' ' -k1,1 -k2,2 -k3,3 -k4,4 | sort -k1.8,1
   --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
   --bind 'ctrl-x:execute-silent(rm -f {})+reload(bash -c "$FZF_DEFAULT_COMMAND")' \
   --bind "ctrl-i:execute(nvim \"${NOTE}.md\")" \
-  --bind 'ctrl-f:execute(bash ./search.sh)'
-popd
+  --bind 'ctrl-f:execute(search md)'
+popd > /dev/null
