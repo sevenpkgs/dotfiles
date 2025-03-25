@@ -4,24 +4,27 @@
 ### A script by @sevenpkgs ###
 
 # finds files in current directory using fzf and opens them in nvim #
-# you can also specify what files to look for                       #
+# you can also specify what files to look for and where to look in  #
 # ex: ./ff md                                                       #
 
-# Use $1 if provided; otherwise, leave EXT empty.
-EXT="$1"
-
-pushd "$(pwd)" > /dev/null
-
-if [ -z "$EXT" ]; then
-  # No argument provided: run command without grep.
-  FZF_DEFAULT_COMMAND="du -a * | cut -f2-"
+# If a single argument is provided and it's a directory, use it.
+if [ "$#" -eq 1 ] && [ -d "$1" ]; then
+  DIR="$1"
+  EXT=""
 else
-  # Argument provided: include grep.
-  FZF_DEFAULT_COMMAND="du -a * | grep -i $EXT | cut -f2-"
+  EXT="${1:-}"
+  DIR="${2:-$(pwd)}"
 fi
 
-FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND" \
-  fzf --height=100% --preview-window=right:75%:wrap \
+pushd "$DIR" > /dev/null
+
+# Build the command concisely.
+cmd="du -a *"
+[ -n "$EXT" ] && cmd="$cmd | grep -i $EXT"
+cmd="$cmd | cut -f2-"
+
+FZF_DEFAULT_COMMAND="$cmd" \
+  fzf --height=100% --preview-window=right:60%:wrap \
       --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
       --bind 'enter:execute(nvim {})' \
       --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
