@@ -3,9 +3,15 @@
 ###       fIND fILES       ###
 ### A script by @sevenpkgs ###
 
+# finds files in current directory using fzf and opens them in nvim #
+# you can also specify what files to look for                       #
+# ex: ./ff md                                                       #
+
+EXT="${1:-*}"
+
 pushd "$(pwd)"
 
-FZF_DEFAULT_COMMAND="du -a ./* | cut -f2-" \
+FZF_DEFAULT_COMMAND="du -a *.$EXT | cut -f2-" \
   fzf --height=100% --preview-window=right:75%:wrap \
   --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
   --bind 'enter:execute(nvim {})' \
