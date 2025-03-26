@@ -32,7 +32,6 @@
     eza
     obsidian
     feh
-    xfce.thunar
     #    (pkgs.callPackage ./programs/harsh.nix {})
     (pkgs.callPackage ./programs/sent.nix {})
     flameshot
@@ -51,6 +50,7 @@
     dunst
     sxiv
     pkgs-unstable.gowall
+    yazi
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
