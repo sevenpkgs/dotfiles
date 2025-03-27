@@ -23,10 +23,6 @@
           }
         ];
 
-        lsp = {
-          formatOnSave = true;
-        };
-
         options = {
           shada = "";
           shiftwidth = 2;
@@ -36,18 +32,28 @@
         statusline.lualine.enable = true;
         telescope.enable = true;
 
+        lsp = {
+          formatOnSave = true;
+        };
+
         languages = {
           enableLSP = true;
           enableTreesitter = true;
 
-          markdown.enable = true;
-          markdown.extensions.render-markdown-nvim.enable = true;
+          markdown = {
+            enable = true;
+            extensions.render-markdown-nvim.enable = true;
+            format.enable = true;
+            format.type = "denofmt";
+            lsp.enable = true;
+          };
 
-          nix.enable = true;
-          nix.lsp.enable = true;
-
-          nix.format.enable = true;
-          nix.format.type = "alejandra";
+          nix = {
+            enable = true;
+            lsp.enable = true;
+            format.enable = true;
+            format.type = "alejandra";
+          };
         };
       };
     };
