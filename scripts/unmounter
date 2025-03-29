@@ -25,4 +25,5 @@ cryptid="$(echo "$lsblkoutput" | grep "/${chosen#*/}$")"
 cryptid="${cryptid%% *}"
 test -b /dev/mapper/"${cryptid##*/}"
 sudo -A cryptsetup close "$cryptid"
+sudo -A rmdir $(echo "$chosen" | sed 's/^.//')
 notify-send "🔒Device dencryption closed." "Drive is now securely locked again."
