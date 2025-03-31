@@ -51,6 +51,9 @@
     sxiv
     pkgs-unstable.gowall
     yazi
+    jq
+    neomutt
+    lynx
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:

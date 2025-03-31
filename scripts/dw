@@ -9,6 +9,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
@@ -23,12 +24,11 @@ data=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
 # Display basic information
 echo -e "${GREEN}Word:${NC} $(echo "$data" | jq -r '.[0].word')"
 echo -e "${GREEN}Phonetic:${NC} $(echo "$data" | jq -r '.[0].phonetic // "N/A"')"
-echo -e "${GREEN}Origin:${NC} $(echo "$data" | jq -r '.[0].origin // "N/A"')"
-echo -e "\n${GREEN}Definitions:${NC}"
+echo -e ""
 
 # Loop through each meaning
 echo "$data" | jq -c '.[0].meanings[]' | while read -r meaning; do
-  echo -e "${YELLOW}Part of Speech:${NC} $(echo "$meaning" | jq -r '.partOfSpeech')"
+  echo -e "${YELLOW} $(echo "$meaning" | jq -r '.partOfSpeech')"
   echo -e "${RED}-----------------------------"
   
   i=1
