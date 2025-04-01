@@ -10,7 +10,7 @@ pushd "$HOME/Documents/notes" > /dev/null
  
 NOTE=$(date +%d-\%b-\%Y\ %H\;\%M)
  
-FZF_DEFAULT_COMMAND="ls *.md | sort -t' ' -k1,1 -k2,2 -k3,3 -k4,4 | sort -k1.8,1.11 -k1.4,1.5 -k1.1,1.2 -k2.1,2.3 -r" \
+FZF_DEFAULT_COMMAND="ls *.md | awk 'function m(s){return s==\"Jan\"?\"01\":s==\"Feb\"?\"02\":s==\"Mar\"?\"03\":s==\"Apr\"?\"04\":s==\"May\"?\"05\":s==\"Jun\"?\"06\":s==\"Jul\"?\"07\":s==\"Aug\"?\"08\":s==\"Sep\"?\"09\":s==\"Oct\"?\"10\":s==\"Nov\"?\"11\":s==\"Dec\"?\"12\":\"00\"}{split(\$0,a,\" \");split(a[1],d,\"-\");split(a[2],t,\";\");printf(\"%s-%s-%s %s:%s %s\\n\",d[3],m(d[2]),d[1],t[1],t[2],\$0)}' | sort -r | cut -d' ' -f3-" \
   fzf --height=100% --preview-window=right:75%:wrap \
   --preview 'bat --language=md --style=plain --theme=gruvbox-dark --color=always {}' \
   --bind 'enter:execute(nvim {})' \
