@@ -71,7 +71,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("librewolf") },
-	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunar") },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("kitty --hold yazi") },
 	{ 0,                            XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer sset Master 5%+ && pkill -RTMIN+5 dwmblocks") },
         { 0,                            XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer sset Master 5%- && pkill -RTMIN+5 dwmblocks") },	
         { 0,                            XF86XK_AudioMute,             spawn,          SHCMD("amixer sset Master toggle && pkill -RTMIN+5 dwmblocks") },
