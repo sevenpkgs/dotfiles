@@ -44,7 +44,7 @@
     bat
     librewolf
     lazygit
-    (ffmpeg.override {withXcb = true;})
+    ffmpeg
     brightnessctl
     libnotify
     dunst
