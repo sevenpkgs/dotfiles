@@ -15,7 +15,7 @@ DAY_TEMP=6500
 NIGHT_TEMP=3500
 day_mode=1
 
-# Generaal settings
+# General settings
 MIN_TEMP=1000         # Minimum temp
 MAX_TEMP=10000        # Maximum temp
 TEMP=6500             # Starting temp
@@ -82,7 +82,8 @@ draw_slider() {
 
 tput civis
 clear
-trap "tput cnorm; stty echo; clear; exit" INT TERM EXIT
+stty -echo -icanon time 0 min 0
+trap "tput cnorm; stty sane; clear; exit" INT TERM EXIT
 
 # apply temp if redshift is enabled
 if [ $redshift_enabled -eq 1 ]; then
@@ -94,6 +95,7 @@ while true; do
 
     # read key with short timeout to avoid lag
     read -rsn1 -t 0.05 key
+
     if [ -n "$key" ]; then
         case "$key" in
             q) break ;;
@@ -112,14 +114,14 @@ while true; do
                 ;;
             g)
                 tput cnorm
-                stty echo
+                stty sane
                 printf "\nEnter temperature (K): "
                 read new_temp
-                tput cuu1  
-                tput el   
-                stty -echo
+                tput cuu1
+                tput el
+                stty -echo -icanon time 0 min 0
                 tput civis
-                # Validate input and update temperature.
+                # validate input and update temperature.
                 if [[ $new_temp =~ ^[0-9]+$ ]]; then
                     TEMP=$new_temp
                     if [ $TEMP -lt $MIN_TEMP ]; then
@@ -130,7 +132,7 @@ while true; do
                 fi
                 ;;
             d)
-                # toggle between day and night temps
+              # toggle between day and night temps
                 if [ $day_mode -eq 1 ]; then
                     TEMP=$NIGHT_TEMP
                     day_mode=0
@@ -148,4 +150,5 @@ while true; do
 done
 
 tput cnorm
+stty sane
 clear
