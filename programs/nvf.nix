@@ -42,10 +42,10 @@
 
           markdown = {
             enable = true;
-            extensions.render-markdown-nvim.enable = true;
-            format.enable = true;
-            format.type = "denofmt";
             lsp.enable = true;
+            format.enable = true;
+            format.type = "deno_fmt";
+            extensions.render-markdown-nvim.enable = true;
           };
 
           nix = {
@@ -53,6 +53,13 @@
             lsp.enable = true;
             format.enable = true;
             format.type = "alejandra";
+          };
+
+          bash = {
+            enable = true;
+            lsp.enable = true;
+            format.enable = true;
+            format.type = "shfmt";
           };
         };
       };
