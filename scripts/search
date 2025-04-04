@@ -13,9 +13,8 @@ EXT="${1:-*}"
 # Use the specified extension or '*' (all files) for the search
 rg --color=always --line-number --no-heading --smart-case -g "*.$EXT" "${*:2}" | tac |
   fzf --ansi \
-      --color "hl:-1:underline,hl+:-1:underline:reverse" \
-      --delimiter : \
-      --preview 'bat --style=plain --language=md --theme=gruvbox-dark --color=always {1} --highlight-line {2}' \
-      --preview-window 'right,60%,wrap,+{2}+3/3,~3' \
-      --bind 'enter:become(nvim {1} +{2})'
-
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --delimiter : \
+    --preview 'bat --style=plain --language=md --theme=gruvbox-dark --color=always {1} --highlight-line {2}' \
+    --preview-window 'right,60%,wrap,+{2}+3/3,~3' \
+    --bind 'enter:become(nvim {1} +{2})'

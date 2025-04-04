@@ -33,7 +33,7 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-  # enable fish
+  # fish
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
   users.users.seven.useDefaultShell = true;

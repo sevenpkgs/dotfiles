@@ -13,24 +13,30 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
-[[ -z "$1" ]] && { echo -e "${RED}Usage: $0 <word>${NC}"; exit 1; }
+[[ -z "$1" ]] && {
+  echo -e "${RED}Usage: $0 <word>${NC}"
+  exit 1
+}
 word="$1"
 
 data=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
 
 # Check if the API returned valid data
-[[ $(echo "$data" | jq -r '.[0].word // empty') == "" ]] && { echo -e "${RED}No definitions found for '$word'.${NC}"; exit 1; }
+[[ $(echo "$data" | jq -r '.[0].word // empty') == "" ]] && {
+  echo -e "${RED}No definitions found for '$word'.${NC}"
+  exit 1
+}
 
 # Display basic information
 echo -e "${GREEN}Word:${NC} $(echo "$data" | jq -r '.[0].word')"
-echo -e "${GREEN}Phonetic:${NC} $(echo "$data" | jq -r '.[0].phonetic // "N/A"')"
+echo -e "${CYAN}Phonetic:${NC} $(echo "$data" | jq -r '.[0].phonetic // "N/A"')"
 echo -e ""
 
 # Loop through each meaning
 echo "$data" | jq -c '.[0].meanings[]' | while read -r meaning; do
   echo -e "${YELLOW} $(echo "$meaning" | jq -r '.partOfSpeech')"
   echo -e "${RED}-----------------------------"
-  
+
   i=1
   echo "$meaning" | jq -c '.definitions[]' | while read -r def; do
     def_text=$(echo "$def" | jq -r '.definition')

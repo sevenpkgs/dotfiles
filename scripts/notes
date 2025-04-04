@@ -5,11 +5,10 @@
 
 # A simple notes program using fzf #
 
+pushd "$HOME/Documents/notes" >/dev/null
 
-pushd "$HOME/Documents/notes" > /dev/null
- 
 NOTE=$(date +%d-\%b-\%Y\ %H\;\%M)
- 
+
 FZF_DEFAULT_COMMAND="ls *.md | awk 'function m(s){return s==\"Jan\"?\"01\":s==\"Feb\"?\"02\":s==\"Mar\"?\"03\":s==\"Apr\"?\"04\":s==\"May\"?\"05\":s==\"Jun\"?\"06\":s==\"Jul\"?\"07\":s==\"Aug\"?\"08\":s==\"Sep\"?\"09\":s==\"Oct\"?\"10\":s==\"Nov\"?\"11\":s==\"Dec\"?\"12\":\"00\"}{split(\$0,a,\" \");split(a[1],d,\"-\");split(a[2],t,\";\");printf(\"%s-%s-%s %s:%s %s\\n\",d[3],m(d[2]),d[1],t[1],t[2],\$0)}' | sort -r | cut -d' ' -f3-" \
   fzf --height=100% --preview-window=right:75%:wrap \
   --preview 'bat --language=md --style=plain --theme=gruvbox-dark --color=always {}' \
@@ -18,4 +17,4 @@ FZF_DEFAULT_COMMAND="ls *.md | awk 'function m(s){return s==\"Jan\"?\"01\":s==\"
   --bind 'ctrl-x:execute-silent(rm -f {})+reload(bash -c "$FZF_DEFAULT_COMMAND")' \
   --bind "ctrl-i:execute(nvim \"${NOTE}.md\")" \
   --bind 'ctrl-f:execute(search md)'
-popd > /dev/null
+popd >/dev/null || exit

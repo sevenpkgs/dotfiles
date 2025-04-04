@@ -6,23 +6,21 @@
 # reads the name of the book you're currently reading from a set file, then opens it #
 # why? because it saves time.                                                        #
 
-
 search_term="$(cat ~/Documents/books/.reading)"
 directory="$HOME/Documents/books/"
 
 # Convert the search term into a regular expression where each character must appear in order
 regex=""
-for ((i=0; i<${#search_term}; i++)); do
-    regex="${regex}${search_term:i:1}.*"
+for ((i = 0; i < ${#search_term}; i++)); do
+  regex="${regex}${search_term:i:1}.*"
 done
 
 # Search for files in the directory where the regex pattern matches
 find "$directory" -type f | while read -r file; do
-    # Check if the filename matches the regex pattern
-    if [[ "$(basename "$file")" =~ $regex ]]; then
-        echo "$file"
-        xdg-open "$file" &
-        break # so the script ends instead of running asynchronously
-    fi
+  # Check if the filename matches the regex pattern
+  if [[ "$(basename "$file")" =~ $regex ]]; then
+    echo "$file"
+    xdg-open "$file" &
+    break # so the script ends instead of running asynchronously
+  fi
 done
-
