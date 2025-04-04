@@ -21,7 +21,8 @@ find "$directory" -type f | while read -r file; do
     # Check if the filename matches the regex pattern
     if [[ "$(basename "$file")" =~ $regex ]]; then
         echo "$file"
-        xdg-open "$file"
+        xdg-open "$file" &
+        break # so the script ends instead of running asynchronously
     fi
 done
 
