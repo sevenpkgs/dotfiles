@@ -54,6 +54,7 @@
     jq
     neomutt
     lynx
+    redshift
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
