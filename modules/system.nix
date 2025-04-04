@@ -22,8 +22,8 @@
   # fancontrol
   hardware.fancontrol = {
     enable = true;
-    config = ''        
-      INTERVAL=10
+    config = ''
+      INTERVAL=5
       DEVPATH=hwmon4=devices/platform/dell_smm_hwmon hwmon7=devices/virtual/thermal/thermal_zone9
       DEVNAME=hwmon4=dell_smm hwmon7=iwlwifi_1
       FCTEMPS= hwmon4/pwm1=hwmon7/temp1_input
