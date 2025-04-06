@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+###        cryptauto        ###
+### A script by @sevenpkgs  ###
+#
+#
+# Usage:
+#   sudo ./cryptauto mount
+#   sudo ./cryptauto unmount
+#
+# In "mount" mode, it will:
+#   1. Detect available LUKS encrypted partitions.
+#   2. Prompt you to select a device.
+#   3. Ask you for a folder name; it creates /tmp/<folder>.
+#   4. Open the selected LUKS device (interactive password prompt).
+#   5. Mount the mapped device at /tmp/<folder>.
+#
+# In "unmount" mode, it will:
+#   1. List mounted LUKS drives whose mountpoint is under /tmp.
+#   2. Prompt you to select one to unmount.
+#   3. Unmount it, close its cryptsetup mapping, and delete the mount folder.
+
+set -e
+
+# Ensure the script is run as root.
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root (or via sudo)."
+  exit 1
+fi
+
+# Function to list LUKS devices.
+# It uses lsblk to list block devices with FSTYPE containing "crypto"
+list_luks_devices() {
+  lsblk -l -o NAME,FSTYPE -n | grep -i "crypto"
+}
+
+mount_drive() {
+  echo "Detecting available LUKS devices..."
+  devices=()
+  while IFS= read -r line; do
+    # Each line is expected to be: <device> <FSTYPE>
+    dev=$(echo "$line" | awk '{print $1}')
+    devices+=("$dev")
+  done < <(list_luks_devices)
+
+  if [ ${#devices[@]} -eq 0 ]; then
+    echo "No LUKS devices detected."
+    exit 1
+  fi
+
+  echo "Available LUKS devices:"
+  for i in "${!devices[@]}"; do
+    echo "$((i + 1))) /dev/${devices[$i]}"
+  done
+
+  if [ ${#devices[@]} -eq 1 ]; then
+    echo "Only one device available, selecting it automatically."
+    choice=1
+  else
+    read -p "Enter the number of the device to open: " choice
+  fi
+  if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "${#devices[@]}" ]; then
+    echo "Invalid selection."
+    exit 1
+  fi
+
+  device="/dev/${devices[$((choice - 1))]}"
+
+  read -p "Enter a name for the mount folder (will be created in /tmp): " folder
+  mountpoint="/tmp/$folder"
+  if [ -d "$mountpoint" ]; then
+    echo "Folder $mountpoint already exists. Please choose a different name."
+    exit 1
+  fi
+
+  echo "Opening $device..."
+  # This will prompt for the LUKS password interactively.
+  cryptsetup open "$device" "$folder"
+
+  echo "Creating mount point at $mountpoint..."
+  mkdir -p "$mountpoint"
+
+  echo "Mounting /dev/mapper/$folder at $mountpoint..."
+  mount "/dev/mapper/$folder" "$mountpoint"
+
+  echo "Device $device has been opened and mounted at $mountpoint."
+}
+
+unmount_drive() {
+  echo "Detecting mounted LUKS drives in /tmp..."
+  mounted=()
+  # Parse /proc/mounts to list mountpoints under /tmp coming from /dev/mapper
+  while read -r line; do
+    dev=$(echo "$line" | awk '{print $1}')
+    mnt=$(echo "$line" | awk '{print $2}')
+    if [[ "$mnt" == /tmp/* ]] && [[ "$dev" == /dev/mapper/* ]]; then
+      mounted+=("$mnt")
+    fi
+  done </proc/mounts
+
+  if [ ${#mounted[@]} -eq 0 ]; then
+    echo "No mounted LUKS drives found in /tmp."
+    exit 1
+  fi
+
+  echo "Mounted LUKS drives in /tmp:"
+  for i in "${!mounted[@]}"; do
+    echo "$((i + 1))) ${mounted[$i]}"
+  done
+
+  if [ ${#mounted[@]} -eq 1 ]; then
+    echo "Only one mount point available, selecting it automatically."
+    choice=1
+  else
+    read -p "Enter the number of the mount point to unmount: " choice
+  fi
+  if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "${#mounted[@]}" ]; then
+    echo "Invalid selection."
+    exit 1
+  fi
+
+  selected_mount="${mounted[$((choice - 1))]}"
+  # Derive the mapping name from the folder name (i.e. the basename of the mount point)
+  mapping=$(basename "$selected_mount")
+
+  echo "Unmounting $selected_mount..."
+  umount "$selected_mount"
+
+  echo "Closing LUKS mapping $mapping..."
+  cryptsetup close "$mapping"
+
+  echo "Removing mount folder $selected_mount..."
+  rm -rf "$selected_mount"
+
+  echo "Unmounted and cleaned up."
+}
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 {mount|unmount}"
+  exit 1
+fi
+
+action="$1"
+case "$action" in
+mount)
+  mount_drive
+  ;;
+unmount)
+  unmount_drive
+  ;;
+*)
+  echo "Invalid command. Use 'mount' or 'unmount'."
+  exit 1
+  ;;
+esac
