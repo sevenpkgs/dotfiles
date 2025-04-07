@@ -38,7 +38,6 @@
     neovim
     dust
     keepassxc
-    alejandra
     (ncmpcpp.override {visualizerSupport = true;})
     mpd
     bat
