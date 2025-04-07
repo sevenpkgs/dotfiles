@@ -130,7 +130,7 @@ unmount_drive() {
   cryptsetup close "$mapping"
 
   echo "Removing mount folder $selected_mount..."
-  rm -rf "$selected_mount"
+  rmdir "$selected_mount"
 
   echo "Unmounted and cleaned up."
 }
