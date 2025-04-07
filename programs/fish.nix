@@ -17,8 +17,8 @@
     l = "eza -l";
     la = "eza -la";
     tree = "eza -T";
-    fdf = "cd ~/.dotfiles && du -a ~/.dotfiles/* | cut -f2- | fzf | xargs -r nvim";
-    fdfn = "du -a ~/.dotfiles/* | cut -f2- | fzf | xargs -r nvim";
+    fdf = "cd ~/.dotfiles && ff ~/.dotfiles";
+    fdfn = "ff ~/.dotfiles";
   };
 
   home.sessionPath = [
