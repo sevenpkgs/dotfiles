@@ -100,6 +100,16 @@
       hwdec = "auto-safe";
       vo = "gpu";
       profile = "gpu-hq";
+      save-position-on-quit = "yes";
+      sub-scale = 0.5;
+    };
+    bindings = {
+      LEFT = "no-osd seek -5";
+      RIGHT = "no-osd seek +5";
+      UP = "no-osd seek +30";
+      DOWN = "no-osd seek -30";
+      "=" = "add volume 2";
+      "-" = "add volume -2";
     };
   };
 
