@@ -16,7 +16,7 @@ else
   DIR="${2:-$(pwd)}"
 fi
 
-pushd "$DIR" > /dev/null
+pushd "$DIR" >/dev/null
 
 cmd="du -a *"
 [ -n "$EXT" ] && cmd="$cmd | grep -i $EXT"
@@ -24,10 +24,10 @@ cmd="$cmd | cut -f2-"
 
 FZF_DEFAULT_COMMAND="$cmd" \
   fzf --height=100% --preview-window=right:60%:wrap \
-      --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
-      --bind 'enter:execute(nvim {})' \
-      --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
-      --bind "ctrl-i:execute(nvim)" \
-      --bind 'ctrl-f:execute(search)'
+  --preview 'bat --style=plain --theme=gruvbox-dark --color=always {}' \
+  --bind 'enter:execute(nvim {})' \
+  --bind 'ctrl-r:reload(bash -c "$FZF_DEFAULT_COMMAND")' \
+  --bind "ctrl-i:execute(nvim)" \
+  --bind 'ctrl-f:execute(search)'
 
-popd > /dev/null
+popd >/dev/null
