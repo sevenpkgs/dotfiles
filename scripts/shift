@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+#                         shift                        #
+#                A script by @sevenpkgs                #
+
+# CONFIG
+INCREMENT=500
+DAY_TEMP=6500
+NIGHT_TEMP=3500
+STATE_FILE="/tmp/shift.state"
+
+# Read current state
+if [[ -f "$STATE_FILE" ]]; then
+  source "$STATE_FILE"
+else
+  MODE="day"
+  TEMP=$DAY_TEMP
+  ENABLED=1
+  echo "MODE=$MODE" >"$STATE_FILE"
+  echo "TEMP=$TEMP" >>"$STATE_FILE"
+  echo "ENABLED=$ENABLED" >>"$STATE_FILE"
+fi
+
+save_state() {
+  echo "MODE=$MODE" >"$STATE_FILE"
+  echo "TEMP=$TEMP" >>"$STATE_FILE"
+  echo "ENABLED=$ENABLED" >>"$STATE_FILE"
+}
+
+apply_settings() {
+  if [[ "$ENABLED" -eq 1 ]]; then
+    redshift -P -O "$TEMP" >/dev/null
+  else
+    redshift -x >/dev/null
+  fi
+}
+
+toggle_mode() {
+  if [[ "$MODE" == "day" ]]; then
+    MODE="night"
+    TEMP=$NIGHT_TEMP
+  else
+    MODE="day"
+    TEMP=$DAY_TEMP
+  fi
+  save_state
+  apply_settings
+}
+
+increase_temp() {
+  TEMP=$((TEMP - INCREMENT))
+  save_state
+  apply_settings
+}
+
+decrease_temp() {
+  TEMP=$((TEMP + INCREMENT))
+  save_state
+  apply_settings
+}
+
+toggle_enabled() {
+  if [[ "$ENABLED" -eq 1 ]]; then
+    ENABLED=0
+    redshift -x >/dev/null
+  else
+    ENABLED=1
+    apply_settings
+  fi
+  save_state
+}
+
+# CLI handling
+case "$1" in
+t)
+  toggle_mode
+  ;;
+w)
+  increase_temp
+  ;;
+c)
+  decrease_temp
+  ;;
+o)
+  toggle_enabled
+  ;;
+*)
+  echo "Usage: $0 {t (day/night) | w (increase temp) | c (decrase temp) | o (on/off) }"
+  exit 1
+  ;;
+esac
