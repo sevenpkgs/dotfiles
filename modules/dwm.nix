@@ -12,6 +12,15 @@
     }
   ];
 
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "doom";
+      asterisk = "\\#";
+      auth_fails = 2;
+    };
+  };
+
   services.picom = {
     enable = true;
     vSync = true;
