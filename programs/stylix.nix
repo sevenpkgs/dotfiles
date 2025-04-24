@@ -24,7 +24,6 @@
     base0F = "#d65d0e"; # brown
   };
 
-  stylix.image = ../.wall;
   stylix.enable = true;
   stylix.autoEnable = true;
 
