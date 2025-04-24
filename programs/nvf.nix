@@ -14,12 +14,20 @@
           style = "dark";
         };
 
+        statusline.lualine.enable = true;
+
         keymaps = [
           {
             key = "jk";
             mode = ["i"];
             action = "<ESC>";
             desc = "exit insert mode";
+          }
+          {
+            key = "__";
+            mode = ["i"];
+            action = "—";
+            desc = "em dash";
           }
         ];
 
@@ -29,7 +37,6 @@
           linebreak = true;
         };
         useSystemClipboard = true;
-        statusline.lualine.enable = true;
         telescope.enable = true;
 
         lsp = {
