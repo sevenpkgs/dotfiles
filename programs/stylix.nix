@@ -28,6 +28,11 @@
   stylix.enable = true;
   stylix.autoEnable = true;
 
+  stylix.targets = {
+    gnome.enable = false;
+    kde.enable = false;
+  };
+
   # fonts
   stylix.fonts.serif = {
     package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
