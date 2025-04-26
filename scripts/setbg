@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-[ -f "$1" ] && cp "$1" ~/.dotfiles/.wall && feh --bg-scale ~/.dotfiles/.wall
+[ -f "$1" ] && cp "$1" ~/.config/wall && feh --bg-scale ~/.config/wall
