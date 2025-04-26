@@ -8,14 +8,22 @@
     enable = true;
     settings = {
       vim = {
+        ### theme and ui
         theme = {
           enable = true;
           name = "gruvbox";
           style = "dark";
         };
-
+        ui.colorizer.enable = true;
         statusline.lualine.enable = true;
 
+        git = {
+          enable = true;
+          gitsigns.enable = true;
+          gitsigns.codeActions.enable = false;
+        };
+
+        ### keybindings
         keymaps = [
           {
             key = "jk";
@@ -31,17 +39,19 @@
           }
         ];
 
+        ### nvim settings
         options = {
           shada = "";
           shiftwidth = 2;
           linebreak = true;
         };
         useSystemClipboard = true;
-        telescope.enable = true;
 
+        ### language support
         lsp = {
           formatOnSave = true;
         };
+        telescope.enable = true;
 
         languages = {
           enableLSP = true;
