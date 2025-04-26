@@ -19,11 +19,5 @@ else
     SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
 pushd $SCRIPT_DIR &> /dev/null;
-sudo chown 0:0 .;
-sudo chown -R 0:0 modules/*;
-sudo chown -R 0:0 flake.lock;
-sudo chown 0:0 flake.nix
-sudo chown 0:0 configuration.nix;
-sudo chown 0:0 harden.sh;
-sudo chown 0:0 soften.sh;
+sudo chown -R 0:0 .;
 popd &> /dev/null;
