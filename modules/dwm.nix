@@ -26,7 +26,7 @@
     vSync = true;
   };
 
-  systemd.services.dwmblocks_fix = {
+  systemd.services.dwmblocks = {
     description = "restart dwmblocks to prevent it from freezing.";
     after = ["systemd-suspend.service"];
     serviceConfig.ExecStart = "${pkgs.bash}/bin/bash -c 'pkill dwmblocks; dwmblocks &'";
