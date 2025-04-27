@@ -2,11 +2,13 @@
   config,
   pkgs,
   lib,
+  pkgs-unstable,
   ...
 }: {
   programs.nvf = {
     enable = true;
     settings = {
+      vim.package = pkgs-unstable.neovim-unwrapped;
       vim = {
         ### theme and ui
         theme = {
@@ -14,7 +16,6 @@
           name = "gruvbox";
           style = "dark";
         };
-        ui.colorizer.enable = true;
         statusline.lualine.enable = true;
 
         git = {
