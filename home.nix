@@ -35,7 +35,6 @@
     #    (pkgs.callPackage ./programs/harsh.nix {})
     (pkgs.callPackage ./programs/sent.nix {})
     flameshot
-    neovim
     dust
     keepassxc
     (ncmpcpp.override {visualizerSupport = true;})
