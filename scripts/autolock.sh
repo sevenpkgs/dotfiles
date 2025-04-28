@@ -13,4 +13,6 @@ xidlehook \
   '' \
   --timer 60 \
   'systemctl suspend' \
-  ''
+  '' &
+
+disown
