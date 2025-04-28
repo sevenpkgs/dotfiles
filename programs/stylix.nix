@@ -30,6 +30,7 @@
   stylix.targets = {
     gnome.enable = false;
     kde.enable = false;
+    yazi.enable = false;
   };
 
   # fonts
