@@ -38,6 +38,12 @@
             action = "—";
             desc = "em dash";
           }
+          {
+            key = "<LocalLeader>tt";
+            mode = ["n"];
+            action = ":Neorg toggle-concealer<CR>";
+            desc = "toggle Neorg concealer";
+          }
         ];
 
         ### nvim settings
@@ -45,6 +51,8 @@
           shada = "";
           shiftwidth = 2;
           linebreak = true;
+          concealcursor = "nc";
+          conceallevel = 2;
         };
         useSystemClipboard = true;
 
@@ -53,6 +61,23 @@
           formatOnSave = true;
         };
         telescope.enable = true;
+
+        notes.neorg = {
+          enable = true;
+          setupOpts.load = {
+            "core.defaults" = {};
+            "core.concealer" = {};
+            "core.summary" = {};
+            "core.pivot" = {};
+            "core.presenter" = {config.zen_mode = "zen-mode";};
+            "core.dirman" = {
+              config = {
+                workspaces.main = "~/Documents/neorg";
+                default_workspace = "main";
+              };
+            };
+          };
+        };
 
         languages = {
           enableLSP = true;
