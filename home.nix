@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    ./programs/nvf.nix
+    ./programs/nvf
     ./programs/stylix.nix
     ./programs/fish.nix
   ];

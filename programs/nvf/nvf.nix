@@ -5,18 +5,40 @@
   pkgs-unstable,
   ...
 }: {
+  imports = [./keymaps.nix];
+
   programs.nvf = {
     enable = true;
     settings = {
       vim.package = pkgs-unstable.neovim-unwrapped;
       vim = {
-        ### theme and ui
+        ### plugins
         theme = {
           enable = true;
           name = "gruvbox";
           style = "dark";
         };
         statusline.lualine.enable = true;
+
+        binds.whichKey.enable = true;
+
+        mini.starter = {
+          enable = true;
+          setupOpts = {
+            header = builtins.readFile ./elias.txt;
+          };
+        };
+
+        telescope = {
+          enable = true;
+          mappings = {
+            buffers = "<leader>fb";
+            findFiles = "<leader>ff";
+            gitBranches = "<leader>gb";
+            gitStatus = "<leader>gT";
+            liveGrep = "<leader>/";
+          };
+        };
 
         git = {
           enable = true;
@@ -60,7 +82,6 @@
         lsp = {
           formatOnSave = true;
         };
-        telescope.enable = true;
 
         notes.neorg = {
           enable = true;
