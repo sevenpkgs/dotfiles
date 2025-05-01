@@ -6,18 +6,11 @@
   ...
 }: let
   inherit (util) mkKeymap mkKeymapWithOpts;
-  inherit (lib) optionals;
 in {
   # keymaps definitely not stolen from https://github.com/Elias-Ainsworth/thornevim/
 
   programs.nvf.settings.vim = {
     keymaps = [
-      # disable arrow keys in normal mode
-      (mkKeymap "n" "<up>" "<nop>")
-      (mkKeymap "n" "<down>" "<nop>")
-      (mkKeymap "n" "<left>" "<nop>")
-      (mkKeymap "n" "<right>" "<nop>")
-
       # fix page up and page down so the cursor doesn't move
       (mkKeymap "n" "<PageUp>" "<C-U>")
       (mkKeymap "n" "<PageDown>" "<C-D>")
@@ -38,9 +31,6 @@ in {
       (mkKeymap "v" "<" "<gv")
       (mkKeymap "v" ">" ">gv")
 
-      # replace highlighted text when pasting
-      (mkKeymap "v" "<C-V>" ''"+P'')
-
       # automatically jump to end of text pasted
       (mkKeymapWithOpts "v" "y" "y`]" {silent = true;})
       (mkKeymapWithOpts "v" "p" "p`]" {silent = true;})
@@ -50,14 +40,14 @@ in {
       (mkKeymap "n" ";" ":")
 
       # easier buffer navigation
-      (mkKeymap "n" "<Tab>" ":bnext<CR>")
-      (mkKeymap "n" "<S-Tab>" ":bprevious<CR>")
+      (mkKeymap "n" "<Tab>" ":tabnext<CR>")
+      (mkKeymap "n" "<S-Tab>" ":tabprevious<CR>")
 
       # neorg
       (mkKeymapWithOpts "n" "<leader>ni" "<cmd>:Neorg index<CR>" {desc = "[I]ndex";})
       (mkKeymapWithOpts "n" "<leader>nj" "<cmd>:Neorg journal<CR>" {desc = "[J]ournal";})
       (mkKeymapWithOpts "n" "<leader>nr" "<cmd>:Neorg return<CR>" {desc = "[R]eturn";})
-      (mkKeymapWithOpts "n" "<leader>nwd" "<cmd>:Neorg workspace<CR>" {desc = "[D]efault";})
+      (mkKeymapWithOpts "n" "<leader>nw" "<cmd>:Neorg workspace<CR>" {desc = "[D]efault";})
     ];
   };
 }

@@ -85,16 +85,18 @@
 
         notes.neorg = {
           enable = true;
+          treesitter.enable = true;
           setupOpts.load = {
             "core.defaults" = {};
-            "core.concealer" = {};
             "core.summary" = {};
             "core.pivot" = {};
+            "core.esupports.indent" = {};
+            "core.concealer" = {config.init_open_folds = "always";};
             "core.presenter" = {config.zen_mode = "zen-mode";};
             "core.dirman" = {
               config = {
-                workspaces.main = "~/Documents/neorg";
-                default_workspace = "main";
+                workspaces.root = "~/Documents/neorg";
+                default_workspace = "root";
               };
             };
           };
