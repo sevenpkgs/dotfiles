@@ -1,12 +1,14 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }: {
   # yazi
   programs.yazi = {
     enable = true;
+    package = pkgs-unstable.yazi;
     theme = lib.mkDefault {
       manager = {
         cwd = {fg = "#83a598";};
