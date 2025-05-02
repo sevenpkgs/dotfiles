@@ -3,6 +3,7 @@
   pkgs,
   lib,
   pkgs-unstable,
+  norg-meta,
   ...
 }: {
   imports = [./keymaps.nix];
@@ -46,6 +47,8 @@
           gitsigns.codeActions.enable = false;
         };
 
+        treesitter.grammars = [norg-meta.defaultPackage.${pkgs.system}];
+
         ### keybindings
         keymaps = [
           {
@@ -73,7 +76,6 @@
           shada = "";
           shiftwidth = 2;
           linebreak = true;
-          concealcursor = "nc";
           conceallevel = 2;
         };
         useSystemClipboard = true;
@@ -91,7 +93,12 @@
             "core.summary" = {};
             "core.pivot" = {};
             "core.esupports.indent" = {};
-            "core.concealer" = {config.init_open_folds = "always";};
+            "core.concealer" = {
+              config = {
+                init_open_folds = "always";
+                icon_preset = "diamond";
+              };
+            };
             "core.presenter" = {config.zen_mode = "zen-mode";};
             "core.dirman" = {
               config = {

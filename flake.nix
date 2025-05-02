@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/release-24.11";
     nvf.url = "github:notashelf/nvf";
+    norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
   };
 
   outputs = {
@@ -17,6 +18,7 @@
     home-manager,
     stylix,
     nvf,
+    norg-meta,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -47,6 +49,7 @@
         ];
         extraSpecialArgs = {
           inherit pkgs-unstable;
+          inherit norg-meta;
         };
       };
     };
