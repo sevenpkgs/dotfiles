@@ -34,24 +34,23 @@
   };
 
   # fonts
-  stylix.fonts.serif = {
-    package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-    name = "JetBrainsMonoNL NF";
-  };
-
-  stylix.fonts.sansSerif = {
-    package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-    name = "JetBrainsMonoNL NF";
-  };
-
-  stylix.fonts.monospace = {
-    package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-    name = "JetBrainsMonoNL NF";
-  };
-
-  stylix.fonts.emoji = {
-    package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-    name = "JetBrainsMonoNL NF";
+  stylix.fonts = {
+    serif = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMonoNL NF";
+    };
+    sansSerif = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMonoNL NF";
+    };
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMonoNL NF";
+    };
+    emoji = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMonoNL NF";
+    };
   };
 
   stylix.fonts.sizes.desktop = 12;
