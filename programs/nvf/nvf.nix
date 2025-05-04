@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  pkgs-unstable,
   norg-meta,
   ...
 }: {
@@ -11,7 +10,6 @@
   programs.nvf = {
     enable = true;
     settings = {
-      vim.package = pkgs-unstable.neovim-unwrapped;
       vim = {
         ### plugins
         theme = {

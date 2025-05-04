@@ -1,13 +1,12 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
   lib,
   ...
 }: {
   imports = [
     ./programs/nvf
-    ./programs/stylix.nix
+    #    ./programs/stylix.nix
     ./programs/fish.nix
     ./programs/yazi.nix
   ];
@@ -48,7 +47,7 @@
     libnotify
     dunst
     sxiv
-    pkgs-unstable.gowall
+    gowall
     jq
     neomutt
     lynx
@@ -119,7 +118,6 @@
 
   # zathura
   programs.zathura = {
-    package = pkgs-unstable.zathura;
     enable = true;
     extraConfig = "include gruvbox";
   };
