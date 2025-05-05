@@ -10,16 +10,15 @@
   };
 
   environment.systemPackages = with pkgs; [
-    home-manager
     gnupg
     wget
     git
     dmenu
     unzip
-    kitty
     nh
     alsa-utils
     file
+    lsof
     ripgrep
     xclip
     xidlehook
@@ -38,7 +37,11 @@
   users.defaultUserShell = pkgs.fish;
   users.users.seven.useDefaultShell = true;
 
+  # stylix
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+
+  stylix.homeManagerIntegration.autoImport = false;
+  stylix.homeManagerIntegration.followSystem = false;
 
   stylix.enable = true;
   stylix.autoEnable = true;
