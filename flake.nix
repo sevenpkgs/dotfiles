@@ -29,6 +29,7 @@
         modules = [
           ./configuration.nix
           inputs.stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
         ];
       };
     };
@@ -37,6 +38,7 @@
       seven = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
+          inputs.stylix.homeManagerModules.stylix
           nvf.homeManagerModules.default
           ./home.nix
         ];
