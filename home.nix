@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./programs/nvf
-    #    ./programs/stylix.nix
+    #./programs/stylix.nix
     ./programs/fish.nix
     ./programs/yazi.nix
   ];
@@ -101,10 +101,10 @@
       sub-scale = 0.5;
     };
     bindings = {
-      LEFT = "no-osd seek -5";
-      RIGHT = "no-osd seek +5";
-      UP = "no-osd seek +30";
-      DOWN = "no-osd seek -30";
+      LEFT = "no-osd seek -5 exact";
+      RIGHT = "no-osd seek +5 exact";
+      UP = "no-osd seek +30 exact";
+      DOWN = "no-osd seek -30 exact ";
       "=" = "add volume 2";
       "-" = "add volume -2";
     };
@@ -119,6 +119,10 @@
   # zathura
   programs.zathura = {
     enable = true;
+    options = {
+      selection-clipboard = "clipboard";
+      selection-notification = false;
+    };
     extraConfig = "include gruvbox";
   };
   home.file.".config/zathura/gruvbox".source = ./configs/zathura/gruvbox;
@@ -127,6 +131,8 @@
   programs.kitty = {
     enable = true;
     shellIntegration.enableFishIntegration = true;
+    font.name = "JetBrainsMono Nerd Font";
+    font.size = 13;
   };
 
   # startup
